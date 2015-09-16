@@ -1,0 +1,9 @@
+*.sw*
+node_modules
+assets/vendor/*
+assets/build/*
+app_build/*
+npm-debug.log
+public/assets/*
+public/app/*
+public/fonts

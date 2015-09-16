@@ -1,0 +1,34 @@
+{
+  "name": "scottsmith",
+  "version": "0.0.1",
+  "authors": [
+    "Scott Smith <smitherz82@gmail.com>"
+  ],
+  "description": "Scott Smith",
+  "main": "bower.json",
+  "license": "MIT",
+  "homepage": "scottsmith.me.uk",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.20",
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.5",
+    "angular-aria": "~1.4.6",
+    "angular-route": "~1.4.6",
+    "angular-animate": "~1.4.6",
+    "fontawesome": "~4.4.0",
+    "font-source-sans-pro": "*",
+    "simple-line-icons-webfont": "~1.0.0"
+  },
+  "resolutions": {
+    "angular": "1.4.6-build.4227+sha.544001f"
+  }
+}
