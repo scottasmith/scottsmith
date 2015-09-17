@@ -42,6 +42,7 @@ module.exports = function(grunt) {
             },
             appJs: {
                 src: [
+                    '<%= dirs.app %>/main.js',
                     '<%= dirs.app %>/*.js',
                     '<%= dirs.app %>/shared/**/*.js',
                     '<%= dirs.app %>/components/main/*.js',
