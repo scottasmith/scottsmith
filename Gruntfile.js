@@ -6,11 +6,10 @@ module.exports = function(grunt) {
 
         dirs: {
             app: 'app',
-            app_build: 'app_build',
-            less: 'assets/less',
-            fonts: 'assets/fonts',
-            build: 'assets/build',
-            vendor: 'assets/vendor',
+            less: 'less',
+            fonts: 'fonts',
+            build: 'build',
+            vendor: 'vendor',
             public_assets: 'public/assets',
             public_app: 'public/app',
             public_views: 'public/views',
@@ -48,7 +47,7 @@ module.exports = function(grunt) {
                     '<%= dirs.app %>/components/main/*.js',
                     '<%= dirs.app %>/components/index/*.js'
                 ],
-                dest: '<%= dirs.app_build %>/main.js',
+                dest: '<%= dirs.build %>/main.js',
             },
             less: {
                 src: [
@@ -75,8 +74,8 @@ module.exports = function(grunt) {
 
         uglify: {
             appJs: {
-                src: '<%= dirs.app_build %>/main.js',
-                dest: '<%= dirs.app_build %>/main.min.js'
+                src: '<%= dirs.build %>/main.js',
+                dest: '<%= dirs.build %>/main.min.js'
             },
             dynAppJs: {
                 files: [{
@@ -87,7 +86,7 @@ module.exports = function(grunt) {
                         '!components/main/*.js',
                         '!components/index/*.js'
                     ],
-                    dest: '<%= dirs.app_build %>/',
+                    dest: '<%= dirs.build %>/',
                     ext: '.js'
                 }]
             },
@@ -113,13 +112,13 @@ module.exports = function(grunt) {
             },
             appJs: {
                 expand: true,
-                src: '<%= dirs.app_build %>/main.js',
+                src: '<%= dirs.build %>/main.js',
                 dest: '<%= dirs.public_app %>/',
                 flatten: true
             },
             dynAppJs: {
                 expand: true,
-                cwd: '<%= dirs.app_build %>',
+                cwd: '<%= dirs.build %>',
                 src: [
                     'components/**/*.js'
                 ],
