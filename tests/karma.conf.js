@@ -4,14 +4,14 @@
 module.exports = function(config) {
   config.set({
 
-    basePath: '',
+    basePath: '../',
 
     frameworks: ['jasmine', 'requirejs'],
 
     files: [
       'tests/test-main.js',
-      {pattern: 'app/**/*.js', included: false},
-      {pattern: 'tests/**/*.js', included: false}
+      'app/**/*.js',
+      'tests/**/*.js'
     ],
 
     exclude: [
@@ -23,7 +23,7 @@ module.exports = function(config) {
     reporters: ['progress'],
     port: 9876,
     colors: true,
-  //
+
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
