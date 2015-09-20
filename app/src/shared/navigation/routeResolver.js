@@ -1,11 +1,7 @@
-define('shared/navigation/routeResolver', ['angular'], function () {
+define('shared/navigation/routeResolver', [], function () {
     'use strict';
 
     var routeResolver = function () {
-        this.$get = function () {
-            return this;
-        };
-
         this.routeConfig = function () {
             var viewsDirectory = '/views/',
                 controllersDirectory = '/app',
@@ -75,6 +71,10 @@ define('shared/navigation/routeResolver', ['angular'], function () {
                 resolve: resolve
             };
         }(this.routeConfig);
+
+        this.$get = function () {
+            return this;
+        };
     };
 
     var app = angular.module('routeResolver', []);

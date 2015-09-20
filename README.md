@@ -9,5 +9,6 @@ $ npm install
 
 ### Run tests
 ```
-$ karma start
+$ cd app
+$ karma start karma.conf.js
 ```

@@ -1,11 +1,15 @@
 module.exports = function(grunt) {
 
+    // TODO: Make more dynamic?
+    var app_config = grunt.file.readJSON('config/app_config.json');
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
         dirs: {
             app: 'app',
+            app_src: 'app/src',
             less: 'less',
             fonts: 'fonts',
             build: 'build',
@@ -19,7 +23,7 @@ module.exports = function(grunt) {
 
         jshint: {
             beforeconcat: [
-                '<%= dirs.app %>/**/*.js'
+                '<%= dirs.app %>/src/**/*.js'
             ]
         },
 
@@ -42,11 +46,12 @@ module.exports = function(grunt) {
             },
             appJs: {
                 src: [
-                    '<%= dirs.app %>/main.js',
-                    '<%= dirs.app %>/*.js',
-                    '<%= dirs.app %>/shared/**/*.js',
-                    '<%= dirs.app %>/components/main/*.js',
-                    '<%= dirs.app %>/components/index/*.js'
+                    '<%= dirs.build %>/config.js',
+                    '<%= dirs.app_src %>/main.js',
+                    '<%= dirs.app_src %>/*.js',
+                    '<%= dirs.app_src %>/shared/**/*.js',
+                    '<%= dirs.app_src %>/components/main/*.js',
+                    '<%= dirs.app_src %>/components/index/*.js'
                 ],
                 dest: '<%= dirs.build %>/main.js',
             },
@@ -81,7 +86,7 @@ module.exports = function(grunt) {
             dynAppJs: {
                 files: [{
                     expand: true,
-                    cwd: '<%= dirs.app %>',
+                    cwd: '<%= dirs.app_src %>',
                     src: [
                         'components/**/*.js',
                         '!components/main/*.js',
@@ -111,6 +116,15 @@ module.exports = function(grunt) {
                 dest: '<%= dirs.public_assets %>/',
                 flatten: true
             },
+            appConfigJs: {
+                src: '<%= dirs.app %>/config.ejs',
+                dest: '<%= dirs.build %>/config.js',
+                options: {
+                    process: function (content, path) {
+                        return grunt.template.process(content);
+                    }
+                }
+            },
             appJs: {
                 expand: true,
                 src: '<%= dirs.build %>/main.js',
@@ -127,7 +141,7 @@ module.exports = function(grunt) {
             },
             dynAppViews: {
                 expand: true,
-                cwd: '<%= dirs.app %>',
+                cwd: '<%= dirs.app_src %>',
                 src: [
                     'components/**/*.html'
                 ],
@@ -155,10 +169,10 @@ module.exports = function(grunt) {
         watch: {
             appJs: {
                 files: [
-                    '<%= dirs.app %>/*.js',
-                    '<%= dirs.app %>/shared/**/*.js',
-                    '<%= dirs.app %>/components/main/*.js',
-                    '<%= dirs.app %>/components/index/*.js'
+                    '<%= dirs.app_src %>/*.js',
+                    '<%= dirs.app_src %>/shared/**/*.js',
+                    '<%= dirs.app_src %>/components/main/*.js',
+                    '<%= dirs.app_src %>/components/index/*.js'
                 ],
                 tasks: ['jshint', 'concat:appJs', 'uglify:appJs', 'copy:appJs'],
                 options: {
@@ -167,9 +181,9 @@ module.exports = function(grunt) {
             },
             dynAppJs: {
                 files: [
-                    '<%= dirs.app %>/components/**/*.js',
-                    '!<%= dirs.app %>/components/main/*.js',
-                    '!<%= dirs.app %>/components/index/*.js'
+                    '<%= dirs.app_src %>/components/**/*.js',
+                    '!<%= dirs.app_src %>/components/main/*.js',
+                    '!<%= dirs.app_src %>/components/index/*.js'
                 ],
                 tasks: ['jshint', 'uglify:dynAppJs', 'copy:dynAppJs'],
                 options: {
@@ -178,7 +192,7 @@ module.exports = function(grunt) {
             },
             dynAppViews: {
                 files: [
-                    '<%= dirs.app %>/components/**/*.html'
+                    '<%= dirs.app_src %>/components/**/*.html'
                 ],
                 tasks: ['copy:dynAppViews'],
                 options: {
@@ -198,6 +212,8 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.config('app_config', app_config);
+
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -212,7 +228,7 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['concat:less', 'less:build', 'copy:css'])
 
     grunt.registerTask('libJs', ['concat:libJs', 'uglify:libJs', 'copy:libJs'])
-    grunt.registerTask('appJs', ['jshint', 'concat:appJs', 'uglify:appJs', 'copy:appJs'])
+    grunt.registerTask('appJs', ['jshint', 'copy:appConfigJs', 'concat:appJs', 'uglify:appJs', 'copy:appJs'])
     grunt.registerTask('dynAppJs', ['jshint', 'uglify:dynAppJs', 'copy:dynAppJs'])
 
     grunt.registerTask('dynAppViews', ['copy:dynAppViews'])
