@@ -9,7 +9,7 @@ module.exports = function(grunt) {
             less: 'less',
             fonts: 'fonts',
             build: 'build',
-            vendor: 'vendor',
+            vendor: 'app/vendor',
             public_assets: 'public/assets',
             public_app: 'public/app',
             public_views: 'public/views',

@@ -1,4 +1,4 @@
-define('shared/navigation/routeResolver', [], function () {
+define('shared/navigation/routeResolver', ['angular'], function () {
     'use strict';
 
     var routeResolver = function () {

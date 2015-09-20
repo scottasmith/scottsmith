@@ -20,13 +20,14 @@
   "dependencies": {
     "requirejs": "~2.1.20",
     "bootstrap": "~3.3.5",
-    "angular": "~1.4.5",
+    "angular": "~1.4.6",
     "angular-aria": "~1.4.6",
     "angular-route": "~1.4.6",
     "angular-animate": "~1.4.6",
     "fontawesome": "~4.4.0",
     "font-source-sans-pro": "*",
-    "simple-line-icons-webfont": "~1.0.0"
+    "simple-line-icons-webfont": "~1.0.0",
+    "angular-mocks": "~1.4.6"
   },
   "resolutions": {
     "angular": "1.4.6-build.4227+sha.544001f"

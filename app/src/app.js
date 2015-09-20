@@ -1,4 +1,5 @@
 define('app', [
+    'angular',
     'shared/navigation/routeResolver'
 ], function () {
     'use strict';
