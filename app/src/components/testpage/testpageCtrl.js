@@ -1,7 +1,7 @@
-define('components/testpage/testpageCtrl', ['app'], function (app) {
-    app.controller('TestpageCtrl', [
+define('components/testpage/testpageCtrl', ['app'], function(app) {
+    app.register.controller('testpageCtrl', [
         '$scope',
-        function ($scope) {
+        function($scope) {
         }
     ]);
 });

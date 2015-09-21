@@ -1,7 +1,7 @@
-define('components/index/indexCtrl', ['app'], function (app) {
-    app.controller('IndexCtrl', [
+define('components/index/indexCtrl', ['app'], function(app) {
+    app.controller('indexCtrl', [
         '$scope',
-        function IndexCtrl($scope) {
+        function($scope) {
             $scope.test = 'Hello';
         }
     ]);

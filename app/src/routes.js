@@ -17,7 +17,7 @@ define('routes', [
             $routeProvider
                 .when('/', {
                     templateUrl: '/views/components/index/index.html',
-                    controller: 'IndexCtrl'
+                    controller: 'indexCtrl'
                 })
 
                 .when('/testpage', route.resolve('testpage', 'components/testpage'))
@@ -25,5 +25,4 @@ define('routes', [
                 .otherwise({ redirectTo: '/' });
         }
     ]);
-console.log("TEST");
 });

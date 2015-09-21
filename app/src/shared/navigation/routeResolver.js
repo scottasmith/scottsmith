@@ -1,26 +1,19 @@
-define('shared/navigation/routeResolver', [], function () {
+define('shared/navigation/routeResolver', ['appConfig'], function (appConfig) {
     'use strict';
 
     var routeResolver = function () {
         this.routeConfig = function () {
-            var viewsDirectory = '/views/',
-                controllersDirectory = '/app',
-
-            setBaseDirectories = function (viewsDir, controllersDir) {
-                viewsDirectory = viewsDir;
-                controllersDirectory = controllersDir;
-            },
+            var viewsDirectory = appConfig.directories.view,
+                controllersDirectory = appConfig.directories.lazyLoad,
 
             getViewsDirectory = function () {
                 return viewsDirectory;
             },
-
             getControllersDirectory = function () {
                 return controllersDirectory;
             };
 
             return {
-                setBaseDirectories: setBaseDirectories,
                 getControllersDirectory: getControllersDirectory,
                 getViewsDirectory: getViewsDirectory
             };
@@ -30,7 +23,7 @@ define('shared/navigation/routeResolver', [], function () {
             var resolve = function (baseName, path, secure) {
                 if (!path) path = '';
 
-                var params = getParams(baseName, path);
+                var params   = getParams(baseName, path);
                 var routeDef = {
                     templateUrl: params.templatePath,
                     controller: params.controllerName,
@@ -46,15 +39,17 @@ define('shared/navigation/routeResolver', [], function () {
             },
             getParams = function (baseName, path) {
                 var controllerName = baseName + 'Ctrl';
+                var templatePath   = path;
+                var controllerPath = path + '/' + controllerName;
 
-                if ('' !== path) {
-                    path = '/' + path + '/';
+                if ('' !== templatePath) {
+                    templatePath = '/' + templatePath + '/';
                 }
 
                 return {
                     controllerName: controllerName,
-                    controllerPath: routeConfig.getControllersDirectory() + path + controllerName + '.js',
-                    templatePath: routeConfig.getViewsDirectory() + path + baseName + '.html'
+                    controllerPath: controllerPath,
+                    templatePath: routeConfig.getViewsDirectory() + templatePath + baseName + '.html'
                 };
             },
             resolveDependencies = function ($q, $rootScope, dependencies) {
