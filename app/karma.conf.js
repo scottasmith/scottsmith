@@ -19,7 +19,7 @@ module.exports = function(config) {
         ],
 
         preprocessors: {},
-        reporters: ['progress'],
+        reporters: ['spec'],
         port: 9876,
         colors: true,
 
@@ -28,7 +28,7 @@ module.exports = function(config) {
         logLevel: config.LOG_INFO,
 
         autoWatch: true,
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome'],
         singleRun: false
     });
 };
