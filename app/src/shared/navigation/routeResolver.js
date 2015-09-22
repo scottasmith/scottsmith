@@ -1,6 +1,16 @@
 define('shared/navigation/routeResolver', ['appConfig'], function (appConfig) {
     'use strict';
 
+    if ('undefined' === typeof(appConfig.directories)) {
+        throw 'appConfig.directories is not defined';
+    }
+    if ('undefined' === typeof(appConfig.directories.view)) {
+        throw 'appConfig.directories.view is not defined';
+    }
+    if ('undefined' === typeof(appConfig.directories.lazyLoad)) {
+        throw 'appConfig.directories.lazyLoad is not defined';
+    }
+
     var routeResolver = function () {
         this.routeConfig = function () {
             var viewsDirectory = appConfig.directories.view,
