@@ -18,12 +18,50 @@ require.config({
     paths: {
         angular: '../vendor/angular/angular',
         angularRoute: '../vendor/angular-route/angular-route',
-        angularMocks: '../vendor/angular-mocks/angular-mocks'
+        angularMocks: '../vendor/angular-mocks/angular-mocks',
+        testMocks: '../test'
     },
 
     shim: {
         angular: { exports: 'angular' },
         angularRoute: { deps: ['angular'] },
         angularMocks: { deps: ['angular'] },
+        testMocks: { exports: 'testMocks' }
     }
 });
+
+var mockMaps = {};
+
+window.mapRequireDependency = function(moduleName, fakeModuleName, dependencyFor, done) {
+    mockMaps[moduleName] = fakeModuleName;
+    require.undef(dependencyFor);
+    require.config({
+        map: {
+            '*': mockMaps
+        }
+    });
+    require.undef(moduleName);
+
+    if ('' !== dependencyFor) {
+        require([dependencyFor], function() {
+            if (done) {
+                done();
+            }
+        });
+    } else {
+        if (done) {
+            done();
+        }
+    }
+};
+
+window.unmapRequireDependency = function(moduleName, dependencyFor) {
+    delete mockMaps[moduleName];
+    require.undef(dependencyFor);
+    require.config({
+        map: {
+            '*': mockMaps
+        }
+    });
+    require.undef(moduleName);
+};
